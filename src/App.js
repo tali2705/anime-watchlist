@@ -20,7 +20,9 @@ export default function App() {
         console.log(err);
       }
     }
-    fetchGenres();
+    setTimeout(() => {
+      fetchGenres();
+    }, 3000);
   }, []);
 
   useEffect(() => {
