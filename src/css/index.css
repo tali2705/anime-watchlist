@@ -308,9 +308,9 @@ body {
 }
 
 .details-overview h2 {
-  font-size: 2.4rem;
+  font-size: 1.8rem;
   margin-bottom: 0.4rem;
-  line-height: 1.1;
+  line-height: 1;
 }
 
 .details-overview p {
@@ -319,25 +319,23 @@ body {
   gap: 0.8rem;
 }
 
-.rating {
-  background-color: var(--color-background-100);
-  border-radius: 0.9rem;
-  padding: 2rem 2.4rem;
-  margin-bottom: 0.8rem;
-  font-weight: 600;
+.btns {
+  padding: 1rem;
   display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
 }
 
 .btn-add {
   background-color: var(--color-primary);
   color: var(--color-text);
   border: none;
-  border-radius: 10rem;
-  font-size: 1.4rem;
+  border-radius: 5rem;
+  font-size: 1.3rem;
   padding: 1rem;
-  font-weight: bold;
+  margin: 0.5rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
 }

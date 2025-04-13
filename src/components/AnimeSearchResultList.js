@@ -1,6 +1,6 @@
 import AnimeListItem from "./AnimeListItem";
 
-export default function AnimeSearchResultList({ animes }) {
+export default function AnimeSearchResultList({ animes, onOpenDetails }) {
   const deduplicatedAnimes = Array.from(
     new Map(animes?.map((anime) => [anime.mal_id, anime])).values()
   );
@@ -8,7 +8,13 @@ export default function AnimeSearchResultList({ animes }) {
   return (
     <ul className="list list-movies">
       {deduplicatedAnimes?.map((anime) => {
-        return <AnimeListItem key={anime.mal_id} anime={anime} />;
+        return (
+          <AnimeListItem
+            key={anime.mal_id}
+            anime={anime}
+            onOpenDetails={onOpenDetails}
+          />
+        );
       })}
     </ul>
   );

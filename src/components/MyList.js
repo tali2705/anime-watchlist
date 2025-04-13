@@ -1,30 +1,51 @@
 import { useState } from "react";
 import WatchListTab from "./WatchListTab";
 import WatchedTab from "./WatchedTab";
+import AnimeDetails from "./AnimeDetails";
 
-export default function MyList() {
+export default function MyList({
+  selectedID,
+  onCloseDetails,
+  onAddToWatch,
+  onAddWatched,
+  toWatch,
+  watched,
+}) {
   const [whatToSee, setWhatToSee] = useState("");
+  function handleToggleMyLists(tab) {
+    setWhatToSee((prev) => (prev === tab ? "" : tab));
+  }
   return (
     <>
       <div className="tabs">
         <button
-          value="watchlist"
-          className={`tab ${whatToSee === "watchlist" && "active"}`}
-          onClick={(e) => setWhatToSee(e.target.value)}
+          className={`tab ${whatToSee === "watchlist" ? "active" : ""}`}
+          onClick={() => handleToggleMyLists("watchlist")}
         >
           Watch List
         </button>
         <button
-          value="watched"
-          className={`tab ${whatToSee === "watched" && "active"}`}
-          onClick={(e) => setWhatToSee(e.target.value)}
+          className={`tab ${whatToSee === "watched" ? "active" : ""}`}
+          onClick={() => handleToggleMyLists("watched")}
         >
           Watched
         </button>
       </div>
       <div>
-        {whatToSee === "watchlist" && <WatchListTab />}
-        {whatToSee === "watched" && <WatchedTab />}
+        {whatToSee === "watchlist" ? (
+          <WatchListTab toWatch={toWatch} />
+        ) : whatToSee === "watched" ? (
+          <WatchedTab watched={watched} />
+        ) : (
+          <AnimeDetails
+            selectedID={selectedID}
+            onAddToWatch={onAddToWatch}
+            onAddWatched={onAddWatched}
+            onCloseDetails={onCloseDetails}
+            toWatch={toWatch}
+            watched={watched}
+          />
+        )}
       </div>
     </>
   );
