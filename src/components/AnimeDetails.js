@@ -16,7 +16,6 @@ export default function AnimeDetails({
   const isInWatchList = toWatch
     .map((anime) => anime.mal_id)
     .includes(selectedID);
-  // console.log(isInWatchList);
 
   function AddWatched() {
     onAddWatched(newAnime);
@@ -43,6 +42,15 @@ export default function AnimeDetails({
 
     fetchAnimeDetails();
   }, [selectedID]);
+
+  useEffect(() => {
+    if (!animeDetails?.title) return;
+    document.title = animeDetails?.title;
+
+    return function () {
+      document.title = "AnimeList";
+    };
+  }, [animeDetails?.title]);
 
   if (!selectedID || !animeDetails || !animeDetails.images) return null;
   const {

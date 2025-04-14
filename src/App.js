@@ -3,10 +3,6 @@ import Header from "./components/Header";
 import "./css/index.css";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
-import Loader from "./components/Loader";
-import AnimeSearchResultList from "./components/AnimeSearchResultList";
-import MyList from "./components/MyList";
-import Box from "./components/Box";
 import Search from "./components/Search";
 import Filter from "./components/Filter";
 
@@ -16,27 +12,6 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [genres, setGenres] = useState([]);
   const [error, setError] = useState("");
-  const [selectedID, setSelectedID] = useState(null);
-  const [toWatch, setToWatch] = useState([]);
-  const [watched, setWatched] = useState([]);
-  const [whatToSee, setWhatToSee] = useState("");
-
-  function handleToggleDetails(id) {
-    setSelectedID((selectedID) => (id === selectedID ? null : id));
-    setWhatToSee("");
-  }
-
-  function handleAddWatched(newAnime) {
-    setWatched((watched) => [...watched, newAnime]);
-  }
-
-  function handleAddToWatch(newAnime) {
-    setToWatch((toWatch) => [...toWatch, newAnime]);
-  }
-
-  function handleCloseDetails() {
-    setSelectedID(null);
-  }
 
   useEffect(() => {
     const controller = new AbortController();
@@ -88,39 +63,13 @@ export default function App() {
     }
     fetchGenres();
   }, []);
-
   return (
     <>
       <Header>
         <Search setSearchQuery={setSearchQuery} />
         <Filter genres={genres} />
       </Header>
-      <Main>
-        <Box>
-          {isLoading && <Loader />}
-          {!isLoading && !error && (
-            <AnimeSearchResultList
-              onOpenDetails={handleToggleDetails}
-              animes={animes}
-            />
-          )}
-          {error && "Something went wrong"}
-        </Box>
-        <Box>
-          <MyList
-            setWhatToSee={setWhatToSee}
-            whatToSee={whatToSee}
-            selectedID={selectedID}
-            watched={watched}
-            setWatched={setWatched}
-            toWatch={toWatch}
-            setToWatch={setToWatch}
-            onAddToWatch={handleAddToWatch}
-            onAddWatched={handleAddWatched}
-            onCloseDetails={handleCloseDetails}
-          />
-        </Box>
-      </Main>
+      <Main isLoading={isLoading} error={error} animes={animes} />
       <Footer />
     </>
   );
