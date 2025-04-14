@@ -1,4 +1,3 @@
-import { useState } from "react";
 import WatchListTab from "./WatchListTab";
 import WatchedTab from "./WatchedTab";
 import AnimeDetails from "./AnimeDetails";
@@ -10,11 +9,15 @@ export default function MyList({
   onAddWatched,
   toWatch,
   watched,
+  setWatched,
+  setToWatch,
+  whatToSee,
+  setWhatToSee,
 }) {
-  const [whatToSee, setWhatToSee] = useState("");
   function handleToggleMyLists(tab) {
     setWhatToSee((prev) => (prev === tab ? "" : tab));
   }
+
   return (
     <>
       <div className="tabs">
@@ -33,9 +36,18 @@ export default function MyList({
       </div>
       <div>
         {whatToSee === "watchlist" ? (
-          <WatchListTab toWatch={toWatch} />
+          <WatchListTab
+            toWatch={toWatch}
+            setWatched={setWatched}
+            setToWatch={setToWatch}
+            setWhatToSee={setWhatToSee}
+          />
         ) : whatToSee === "watched" ? (
-          <WatchedTab watched={watched} />
+          <WatchedTab
+            watched={watched}
+            setWatched={setWatched}
+            setWhatToSee={setWhatToSee}
+          />
         ) : (
           <AnimeDetails
             selectedID={selectedID}
@@ -44,6 +56,7 @@ export default function MyList({
             onCloseDetails={onCloseDetails}
             toWatch={toWatch}
             watched={watched}
+            setWhatToSee={setWhatToSee}
           />
         )}
       </div>

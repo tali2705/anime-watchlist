@@ -1,6 +1,11 @@
-export default function WatchedTab({ watched }) {
+export default function WatchedTab({ watched, setWatched, setWhatToSee }) {
   if (watched.length === 0) {
     return <p>Your watched list is empty. Start adding some anime!</p>;
+  }
+
+  function handleDeleteFromWatchedList(id) {
+    setWatched(watched.filter((anime) => anime.mal_id !== id));
+    setWhatToSee("");
   }
   return (
     <ul className="list list-watched">
@@ -17,6 +22,9 @@ export default function WatchedTab({ watched }) {
               )}
             </p>
             <p>Status: {anime.status}</p>
+            <button onClick={() => handleDeleteFromWatchedList(anime.mal_id)}>
+              Delete from list
+            </button>
           </div>
         </li>
       ))}

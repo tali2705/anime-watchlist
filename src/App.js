@@ -19,9 +19,11 @@ export default function App() {
   const [selectedID, setSelectedID] = useState(null);
   const [toWatch, setToWatch] = useState([]);
   const [watched, setWatched] = useState([]);
+  const [whatToSee, setWhatToSee] = useState("");
 
   function handleToggleDetails(id) {
     setSelectedID((selectedID) => (id === selectedID ? null : id));
+    setWhatToSee("");
   }
 
   function handleAddWatched(newAnime) {
@@ -106,10 +108,13 @@ export default function App() {
         </Box>
         <Box>
           <MyList
+            setWhatToSee={setWhatToSee}
+            whatToSee={whatToSee}
             selectedID={selectedID}
-            animes={animes}
             watched={watched}
+            setWatched={setWatched}
             toWatch={toWatch}
+            setToWatch={setToWatch}
             onAddToWatch={handleAddToWatch}
             onAddWatched={handleAddWatched}
             onCloseDetails={handleCloseDetails}

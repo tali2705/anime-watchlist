@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 
 export default function AnimeDetails({
   selectedID,
-  onAddToWatch,
-  onCloseDetails,
-  onAddWatched,
   watched,
   toWatch,
+  onAddToWatch,
+  onAddWatched,
+  onCloseDetails,
 }) {
   const [animeDetails, setAnimeDetails] = useState({});
 
@@ -16,7 +16,17 @@ export default function AnimeDetails({
   const isInWatchList = toWatch
     .map((anime) => anime.mal_id)
     .includes(selectedID);
-  console.log(isInWatchList);
+  // console.log(isInWatchList);
+
+  function AddWatched() {
+    onAddWatched(newAnime);
+    onCloseDetails();
+  }
+
+  function AddToWatch() {
+    onAddToWatch(newAnime);
+    onCloseDetails();
+  }
 
   useEffect(() => {
     async function fetchAnimeDetails() {
@@ -26,7 +36,6 @@ export default function AnimeDetails({
         );
         const aniData = await response.json();
         setAnimeDetails(aniData.data);
-        // console.log(aniData.data);
       } catch (err) {
         console.log(err.message);
       }
@@ -36,7 +45,6 @@ export default function AnimeDetails({
   }, [selectedID]);
 
   if (!selectedID || !animeDetails || !animeDetails.images) return null;
-
   const {
     title,
     images: { jpg: { image_url: jpgImage } = {} } = {},
@@ -55,17 +63,8 @@ export default function AnimeDetails({
     engTitle,
     status,
     releaseDate,
-  }; //for adding to wishlist
-
-  function handleAddWatched() {
-    onAddWatched(newAnime);
-    onCloseDetails();
-  }
-
-  function handleAddToWatch() {
-    onAddToWatch(newAnime);
-    onCloseDetails();
-  }
+  };
+  //for adding to wishlist
 
   return (
     <div className="details">
@@ -83,10 +82,10 @@ export default function AnimeDetails({
       <div className="btns">
         {!isInWatchList && !isInWatchedList ? (
           <>
-            <button className="btn-add" onClick={handleAddToWatch}>
+            <button className="btn-add" onClick={AddToWatch}>
               Add to Watch List
             </button>
-            <button className="btn-add" onClick={handleAddWatched}>
+            <button className="btn-add" onClick={AddWatched}>
               Add to Watched
             </button>
           </>
