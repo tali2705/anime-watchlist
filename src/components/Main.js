@@ -45,7 +45,6 @@ export default function Main({ isLoading, error, animes }) {
         )}
         {error && "Something went wrong"}
       </Box>
-
       <Box>
         <ListButtons
           setWhatToSee={setWhatToSee}
@@ -65,7 +64,7 @@ export default function Main({ isLoading, error, animes }) {
             setWatched={setWatched}
             setWhatToSee={setWhatToSee}
           />
-        ) : (
+        ) : selectedID !== null ? (
           <AnimeDetails
             selectedID={selectedID}
             onAddToWatch={handleAddToWatch}
@@ -75,6 +74,10 @@ export default function Main({ isLoading, error, animes }) {
             watched={watched}
             setWhatToSee={setWhatToSee}
           />
+        ) : (
+          <h3 className="btns">
+            Search and select anime you want to see the details of
+          </h3>
         )}
       </Box>
     </div>

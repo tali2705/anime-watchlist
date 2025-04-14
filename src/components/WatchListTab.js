@@ -5,7 +5,11 @@ export default function WatchListTab({
   setWhatToSee,
 }) {
   if (toWatch.length === 0) {
-    return <p>Your watch list is empty. Start adding some anime!</p>;
+    return (
+      <h3 className="btns">
+        Your watch list is empty. Start adding some anime!
+      </h3>
+    );
   }
 
   function moveToWatched(id) {

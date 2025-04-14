@@ -4,7 +4,7 @@ import "./css/index.css";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
 import Search from "./components/Search";
-import Filter from "./components/Filter";
+// import Filter from "./components/Filter";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +67,7 @@ export default function App() {
     <>
       <Header>
         <Search setSearchQuery={setSearchQuery} />
-        <Filter genres={genres} />
+        {/* <Filter genres={genres} /> */}
       </Header>
       <Main isLoading={isLoading} error={error} animes={animes} />
       <Footer />

@@ -1,6 +1,10 @@
 export default function WatchedTab({ watched, setWatched, setWhatToSee }) {
   if (watched.length === 0) {
-    return <p>Your watched list is empty. Start adding some anime!</p>;
+    return (
+      <h3 className="btns">
+        Your watched list is empty. Start adding some anime!
+      </h3>
+    );
   }
 
   function handleDeleteFromWatchedList(id) {
