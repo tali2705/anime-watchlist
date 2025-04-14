@@ -10,7 +10,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [animes, setAnimes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [genres, setGenres] = useState([]);
+  // const [genres, setGenres] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -35,7 +35,6 @@ export default function App() {
           throw new Error("No results.");
         }
         setAnimes(data.data);
-        // console.log(data.data);
         setError("");
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -51,18 +50,18 @@ export default function App() {
     };
   }, [searchQuery]);
 
-  useEffect(() => {
-    async function fetchGenres() {
-      try {
-        const res = await fetch("https://api.jikan.moe/v4/genres/anime");
-        const data = await res.json();
-        setGenres(data.data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchGenres();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchGenres() {
+  //     try {
+  //       const res = await fetch("https://api.jikan.moe/v4/genres/anime");
+  //       const data = await res.json();
+  //       setGenres(data.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  //   fetchGenres();
+  // }, []);
   return (
     <>
       <Header>

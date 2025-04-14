@@ -1,9 +1,4 @@
-export default function WatchListTab({
-  toWatch,
-  setWatched,
-  setToWatch,
-  setWhatToSee,
-}) {
+export default function WatchListTab({ toWatch, setWatched, setToWatch }) {
   if (toWatch.length === 0) {
     return (
       <h3 className="btns">
@@ -16,7 +11,6 @@ export default function WatchListTab({
     const selectedAnime = toWatch.find((anime) => anime.mal_id === id);
     setWatched((watched) => [...watched, selectedAnime]);
     handleDeleteFromList(id);
-    setWhatToSee("");
   }
 
   function handleDeleteFromList(id) {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ListButtons from "./ListButtons";
 
 import Loader from "./Loader";
@@ -10,9 +10,15 @@ import AnimeDetails from "./AnimeDetails";
 
 export default function Main({ isLoading, error, animes }) {
   const [selectedID, setSelectedID] = useState(null);
-  const [toWatch, setToWatch] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [whatToSee, setWhatToSee] = useState("");
+  const [toWatch, setToWatch] = useState(function () {
+    const toWatchStoredValue = localStorage.getItem("toWatch");
+    return JSON.parse(toWatchStoredValue);
+  });
+  const [watched, setWatched] = useState(function () {
+    const watchedStoredValue = localStorage.getItem("watched");
+    return JSON.parse(watchedStoredValue);
+  });
 
   function handleToggleDetails(id) {
     setSelectedID((selectedID) => (id === selectedID ? null : id));
@@ -32,6 +38,13 @@ export default function Main({ isLoading, error, animes }) {
   function handleToggleMyLists(tab) {
     setWhatToSee((prev) => (prev === tab ? "" : tab));
   }
+
+  useEffect(() => {
+    localStorage.setItem("toWatch", JSON.stringify(toWatch));
+  }, [toWatch]);
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify(watched));
+  }, [watched]);
 
   return (
     <div className="main">

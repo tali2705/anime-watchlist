@@ -4,6 +4,7 @@ export default function AnimeDetails({
   selectedID,
   watched,
   toWatch,
+  setWhatToSee,
   onAddToWatch,
   onAddWatched,
   onCloseDetails,
@@ -20,11 +21,13 @@ export default function AnimeDetails({
   function AddWatched() {
     onAddWatched(newAnime);
     onCloseDetails();
+    setWhatToSee("watched");
   }
 
   function AddToWatch() {
     onAddToWatch(newAnime);
     onCloseDetails();
+    setWhatToSee("watchlist");
   }
 
   useEffect(() => {
@@ -51,6 +54,19 @@ export default function AnimeDetails({
       document.title = "AnimeList";
     };
   }, [animeDetails?.title]);
+
+  useEffect(() => {
+    function closeOnEscape(e) {
+      if (e.code === "Escape") {
+        onCloseDetails();
+      }
+    }
+    document.addEventListener("keydown", closeOnEscape);
+
+    return function () {
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [onCloseDetails]);
 
   if (!selectedID || !animeDetails || !animeDetails.images) return null;
   const {
